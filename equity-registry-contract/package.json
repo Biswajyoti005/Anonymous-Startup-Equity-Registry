@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "compile": "compact compile src/counter.compact src/managed/counter",
-    "compile:voting": "compact compile src/voting.compact src/managed/voting",
     "compile:equity": "compact compile src/equity-registry.compact src/managed/equity-registry",
+    "compile:voting": "compact compile src/voting.compact src/managed/voting",
     "build": "tsc",
     "deploy": "node dist/deploy.js",
     "deploy:voting": "node dist/deploy-voting.js"
