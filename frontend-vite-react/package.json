@@ -8,7 +8,7 @@
     "build": "npm run copy-contract-keys && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "copy-contract-keys": "mkdir -p ./public/midnight/counter/keys && mkdir -p ./public/midnight/counter/zkir && cp -r ../equity-registry-contract/src/managed/counter/keys/* ./public/midnight/counter/keys && cp -r ../equity-registry-contract/src/managed/counter/zkir/* ./public/midnight/counter/zkir"
+    "copy-contract-keys": "node -e \"const fs=require('fs'),p=require('path');['keys','zkir'].forEach(d=>{const src=p.join('..','equity-registry-contract','src','managed','counter',d),dst=p.join('public','midnight','counter',d);fs.mkdirSync(dst,{recursive:true});fs.readdirSync(src).forEach(f=>fs.copyFileSync(p.join(src,f),p.join(dst,f)))});\""
   },
   "dependencies": {
     "@eddalabs/equity-registry-contract": "*",

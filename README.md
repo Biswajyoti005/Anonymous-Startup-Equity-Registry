@@ -15,10 +15,10 @@ The **Anonymous Startup Equity Registry** enables startups to:
 
 | Property | Value |
 |----------|-------|
-| **Contract Address** | `1e68c52940d1820d3302b6b5a5badd08c70300d17d6ebd04ba468be433ae30b5` |
+| **Contract Address** | `0b024463133ca043ada35a33ad169c3f64672f4d3099244fd36feca8992effdf` |
 | **Network** | Midnight undeployed (local testnet) |
-| **Deployment Date** | February 13, 2026 |
-| **Deployment Seed** | `c5e5274a3a572015b37f6fc0fe5176d3dc8bcbb871d6eac7cd6e8c6eed5d206f` |
+| **Deployment Date** | February 15, 2026 |
+| **Deployment Seed** | `4295e2b3cf4cd78e5c3f52f73d9f4a7e2bf419bcadd106632780fda850084e98` |
 
 ⚠️ **Save the deployment seed** to restore your wallet and manage this contract in the future.
 
@@ -297,10 +297,10 @@ After successful deployment, the contract details are saved in `deployment.json`
 
 ```json
 {
-  "contractAddress": "1e68c52940d1820d3302b6b5a5badd08c70300d17d6ebd04ba468be433ae30b5",
+  "contractAddress": "0b024463133ca043ada35a33ad169c3f64672f4d3099244fd36feca8992effdf",
   "network": "undeployed",
-  "deployedAt": "2026-02-13T20:38:27.126Z",
-  "seed": "c5e5274a3a572015b37f6fc0fe5176d3dc8bcbb871d6eac7cd6e8c6eed5d206f"
+  "deployedAt": "2026-02-15T11:40:55.475Z",
+  "seed": "4295e2b3cf4cd78e5c3f52f73d9f4a7e2bf419bcadd106632780fda850084e98"
 }
 ```
 
@@ -449,6 +449,6 @@ For issues, questions, or feedback:
 
 **Last Updated:** February 15, 2026
 **Status:** ✅ Full-Stack Production Ready (Local Testnet)
-**Contract Address:** `1e68c52940d1820d3302b6b5a5badd08c70300d17d6ebd04ba468be433ae30b5`
+**Contract Address:** `0b024463133ca043ada35a33ad169c3f64672f4d3099244fd36feca8992effdf`
 **Frontend:** React + Vite + TailwindCSS + TanStack Router
 **GitHub:** https://github.com/Biswajyoti005/Anonymous-Startup-Equity-Registry.git

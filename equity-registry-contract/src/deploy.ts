@@ -74,7 +74,7 @@ const logger = pino(
 // ---------------------------------------------------------------------------
 type CounterPrivateState = { privateCounter: number };
 type CounterCircuits = ImpureCircuitId<Contract<CounterPrivateState>>;
-const CounterPrivateStateId = 'counterPrivateState' as const;
+const CounterPrivateStateId = 'equityRegistryPrivateState' as const;
 
 // ---------------------------------------------------------------------------
 // Helpers (adapted from counter-cli/src/api.ts)
@@ -346,7 +346,7 @@ async function main() {
 
   const providers = {
     privateStateProvider: levelPrivateStateProvider<typeof CounterPrivateStateId>({
-      privateStateStoreName: 'counter-private-state',
+      privateStateStoreName: 'equity-registry-private-state',
       signingKeyStoreName: 'signing-keys',
       midnightDbName: 'midnight-level-db',
       walletProvider: walletAndMidnightProvider,
