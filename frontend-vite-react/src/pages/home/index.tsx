@@ -1,5 +1,5 @@
 import { useNavigate } from '@tanstack/react-router';
-import { Wallet, PlusCircle } from 'lucide-react';
+import { Wallet, Shield, Lock, FileText } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
 
 export function Home() {
@@ -7,16 +7,16 @@ export function Home() {
 
   const implementations = [
     {
-      title: 'Wallet Widget',
-      description: 'Connect and manage your digital wallet',
-      icon: <Wallet className="w-10 h-10 text-blue-600" />,
-      path: '/wallet-ui'
+      title: 'Equity Registry',
+      description: 'Register and verify equity stakes with zero-knowledge privacy',
+      icon: <Shield className="w-10 h-10 text-primary" />,
+      path: '/equity-registry'
     },
     {
-      title: 'Counter Contract',
-      description: 'Interactive counter smart contract',
-      icon: <PlusCircle className="w-10 h-10 text-blue-600" />,
-      path: '/counter'
+      title: 'Wallet',
+      description: 'Connect and manage your Midnight Lace wallet',
+      icon: <Wallet className="w-10 h-10 text-primary" />,
+      path: '/wallet-ui'
     },
   ];
 
@@ -25,8 +25,8 @@ export function Home() {
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-12">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl font-bold text-foreground mb-2">Midnight Starter Template</h1>
-            <p className="text-xl text-muted-foreground">Explore our implementations and features</p>
+            <h1 className="text-4xl font-bold text-foreground mb-2">Anonymous Startup Equity Registry</h1>
+            <p className="text-xl text-muted-foreground">Privacy-preserving cap table management on Midnight</p>
           </div>
           <ModeToggle />
         </div>

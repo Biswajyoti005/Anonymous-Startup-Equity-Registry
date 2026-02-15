@@ -27,24 +27,40 @@ The **Anonymous Startup Equity Registry** enables startups to:
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
+- Midnight Lace Wallet browser extension
 - Local Midnight network running:
   - Proof Server (port 6300)
   - Indexer (port 8088)
   - Node (port 9944)
 
-### Build & Deploy
+### Full-Stack Build & Deploy
 
 ```bash
-# Navigate to contract directory
-cd equity-registry-contract
-
-# Install dependencies
+# 1. Install all workspace dependencies
 npm install
 
-# Build the project
+# 2. Build the contract package
+cd equity-registry-contract
 npm run build
 
-# Deploy the contract (generate new seed or use existing)
+# 3. Deploy the contract (generate new seed or use existing)
+npm run deploy
+
+# 4. Start the frontend dev server
+cd ../frontend-vite-react
+npm run dev
+```
+
+The frontend will be available at **http://localhost:5173** with:
+- **Home** — Project overview and navigation
+- **Equity Registry** — Register and verify equity stakes
+- **Wallet** — Manage Midnight Lace wallet connection
+
+### Deploy Contract Only
+
+```bash
+cd equity-registry-contract
+npm run build
 npm run deploy
 ```
 
@@ -209,49 +225,69 @@ Facilitate due diligence while protecting confidentiality.
 ## 📂 Project Structure
 
 ```
-midnight-starter-template-windows/
-├── equity-registry-contract/
+Anonymous-Startup-Equity-Registry/
+├── equity-registry-contract/                # Smart contract package
 │   ├── src/
-│   │   ├── equity-registry.compact          # Contract source code
+│   │   ├── equity-registry.compact          # Compact contract source
 │   │   ├── deploy.ts                        # Deployment script
-│   │   ├── managed/
-│   │   │   ├── counter/                     # Counter contract (reference)
-│   │   │   └── equity-registry/             # Equity registry compiled assets
-│   │   │       ├── contract/
-│   │   │       │   ├── index.js             # Contract runtime
-│   │   │       │   ├── index.d.ts           # Type definitions
-│   │   │       │   └── index.js.map         # Source map
-│   │   │       ├── compiler/                # Compiler metadata
-│   │   │       ├── keys/                    # ZK verification keys
-│   │   │       └── zkir/                    # ZK intermediate representation
-│   │   └── test/                            # Test files
-│   ├── package.json                         # Project dependencies
-│   ├── tsconfig.json                        # TypeScript configuration
-│   ├── deployment.json                      # Deployment record
-│   ├── EQUITY_REGISTRY.md                   # Detailed documentation
-│   └── README.md                            # This file
+│   │   ├── index.ts                         # Package exports
+│   │   └── managed/
+│   │       ├── counter/                     # Compiled contract assets
+│   │       │   ├── contract/                # Runtime JS + types
+│   │       │   ├── keys/                    # ZK prover/verifier keys
+│   │       │   └── zkir/                    # ZK intermediate representation
+│   │       └── equity-registry/             # Equity registry compiled assets
+│   ├── deployment.json                      # Deployed contract record
+│   └── package.json
 │
-└── midnight-local-network/                  # Local network setup
-    ├── compose.yml                          # Docker Compose config
-    └── src/
-        ├── fund.ts                          # Wallet funding script
-        └── utils.ts                         # Network utilities
+├── frontend-vite-react/                     # Full-stack React frontend
+│   ├── src/
+│   │   ├── modules/midnight/
+│   │   │   ├── equity-registry-sdk/         # Contract SDK for frontend
+│   │   │   │   ├── api/                     # Types + ContractController
+│   │   │   │   ├── contexts/                # React providers
+│   │   │   │   └── hooks/                   # React hooks
+│   │   │   └── wallet-widget/               # Lace wallet integration
+│   │   ├── pages/
+│   │   │   ├── home/                        # Landing page
+│   │   │   ├── equity-registry/             # Registry UI
+│   │   │   └── wallet-ui/                   # Wallet dashboard
+│   │   ├── routes/                          # TanStack Router file routes
+│   │   ├── layouts/                         # App layout with nav
+│   │   └── components/                      # UI components (shadcn)
+│   ├── .env                                 # Contract address config
+│   ├── vite.config.ts                       # Vite + WASM + polyfills
+│   └── package.json
+│
+├── midnight-local-network/                  # Local network setup
+│   ├── compose.yml                          # Docker Compose config
+│   └── src/
+│       ├── fund.ts                          # Wallet funding script
+│       └── utils.ts                         # Network utilities
+│
+├── vercel.json                              # Vercel deployment config
+├── turbo.json                               # Turborepo config
+└── package.json                             # Workspace root
 ```
 
 ## 🔧 Available Commands
 
 ```bash
-# Build contract and TypeScript
-npm run build
+# Root workspace
+npm install                    # Install all dependencies
+npm run build                  # Build all packages (turbo)
+npm run dev:frontend           # Start frontend dev server
+npm run build-production       # Production build (contract + frontend)
 
-# Compile equity-registry contract
-npm run compile:equity
+# Contract (cd equity-registry-contract/)
+npm run build                  # Compile TypeScript
+npm run compile:equity         # Compile Compact contract
+npm run deploy                 # Deploy to Midnight network
 
-# Deploy contract to network
-npm run deploy
-
-# Run tests (if available)
-npm test
+# Frontend (cd frontend-vite-react/)
+npm run dev                    # Start dev server (localhost:5173)
+npm run build                  # Production build to dist/
+npm run preview                # Preview production build
 ```
 
 ## 📝 Deployment Details
@@ -411,6 +447,8 @@ For issues, questions, or feedback:
 
 ---
 
-**Last Updated:** February 14, 2026
-**Status:** ✅ Production Ready (Local Testnet)
+**Last Updated:** February 15, 2026
+**Status:** ✅ Full-Stack Production Ready (Local Testnet)
 **Contract Address:** `1e68c52940d1820d3302b6b5a5badd08c70300d17d6ebd04ba468be433ae30b5`
+**Frontend:** React + Vite + TailwindCSS + TanStack Router
+**GitHub:** https://github.com/Biswajyoti005/Anonymous-Startup-Equity-Registry.git

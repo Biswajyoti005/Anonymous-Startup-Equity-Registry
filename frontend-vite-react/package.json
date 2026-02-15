@@ -8,10 +8,10 @@
     "build": "npm run copy-contract-keys && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "copy-contract-keys": "mkdir -p ./public/midnight/counter/keys && mkdir -p ./public/midnight/counter/zkir && cp -r ../counter-contract/src/managed/counter/keys/* ./public/midnight/counter/keys && cp -r ../counter-contract/src/managed/counter/zkir/* ./public/midnight/counter/zkir"
+    "copy-contract-keys": "mkdir -p ./public/midnight/counter/keys && mkdir -p ./public/midnight/counter/zkir && cp -r ../equity-registry-contract/src/managed/counter/keys/* ./public/midnight/counter/keys && cp -r ../equity-registry-contract/src/managed/counter/zkir/* ./public/midnight/counter/zkir"
   },
   "dependencies": {
-    "@eddalabs/counter-contract": "*",
+    "@eddalabs/equity-registry-contract": "*",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-icons": "^1.3.2",
