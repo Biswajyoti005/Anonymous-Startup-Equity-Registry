@@ -84,7 +84,7 @@ export function ContractProvider({ children }: { children: ReactNode }) {
           wallet.connectedAPI!,
           config.indexerUri,
           config.indexerWsUri,
-          config.proverServerUri,
+          config.proverServerUri ?? 'http://127.0.0.1:6300',
           wallet.shieldedCoinPublicKey!,
           wallet.shieldedEncryptionPublicKey!,
           'undeployed', // local testnet

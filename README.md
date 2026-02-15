@@ -1,454 +1,348 @@
-# Anonymous Startup Equity Registry
+<p align="center">
+  <img src="https://img.shields.io/badge/Midnight-Network-7c3aed?style=for-the-badge&logoColor=white" alt="Midnight Network" />
+  <img src="https://img.shields.io/badge/Zero--Knowledge-Proofs-10b981?style=for-the-badge" alt="ZK Proofs" />
+  <img src="https://img.shields.io/badge/Status-Deployed-22c55e?style=for-the-badge" alt="Deployed" />
+</p>
 
-A privacy-preserving blockchain platform for managing startup equity stakes on Midnight, where founders and investors record equity ownership on-chain while keeping sensitive cap table information confidential from competitors.
+# 🛡️ Anonymous Startup Equity Registry
 
-## 🎯 Overview
+> A privacy-preserving platform for managing startup equity stakes on the **Midnight Network**, where founders and investors record ownership on-chain while keeping sensitive cap table information completely confidential.
 
-The **Anonymous Startup Equity Registry** enables startups to:
-- **Record Equity Stakes** on an immutable, decentralized ledger
-- **Maintain Privacy** of sensitive cap table details (shareholder names, percentages, vesting terms)
-- **Prevent Competitor Insight** into confidential ownership structures
-- **Enable Compliance** with regulatory disclosure requirements
-- **Verify Authenticity** through zero-knowledge proofs
+---
 
-## 📦 Deployed Contract
+## 📋 Deployed Contract
 
-| Property | Value |
-|----------|-------|
+| | |
+|---|---|
 | **Contract Address** | `0b024463133ca043ada35a33ad169c3f64672f4d3099244fd36feca8992effdf` |
-| **Network** | Midnight undeployed (local testnet) |
-| **Deployment Date** | February 15, 2026 |
+| **Network** | Midnight Local Testnet (`undeployed`) |
+| **Deployed At** | February 15, 2026 — 11:40 UTC |
 | **Deployment Seed** | `4295e2b3cf4cd78e5c3f52f73d9f4a7e2bf419bcadd106632780fda850084e98` |
 
-⚠️ **Save the deployment seed** to restore your wallet and manage this contract in the future.
+> ⚠️ **Keep the deployment seed safe** — it controls the deployer wallet and contract lifecycle.
 
-## ⚡ Quick Start
+---
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-- Midnight Lace Wallet browser extension
-- Local Midnight network running:
-  - Proof Server (port 6300)
-  - Indexer (port 8088)
-  - Node (port 9944)
+## 📸 Screenshots
 
-### Full-Stack Build & Deploy
+### Landing Page — Connect Wallet
+<p align="center">
+  <img src="screenshots/landing-page.png" alt="Landing Page - Connect Your Wallet" width="900" />
+</p>
 
-```bash
-# 1. Install all workspace dependencies
-npm install
+### Connected — Smart Contract & Wallet Details
+<p align="center">
+  <img src="screenshots/connected-dashboard.png" alt="Connected Dashboard - Contract State & Wallet Details" width="900" />
+</p>
 
-# 2. Build the contract package
-cd equity-registry-contract
-npm run build
+---
 
-# 3. Deploy the contract (generate new seed or use existing)
-npm run deploy
+## 🎯 What It Does
 
-# 4. Start the frontend dev server
-cd ../frontend-vite-react
-npm run dev
-```
+Traditional cap table management exposes sensitive ownership data. This platform solves that:
 
-The frontend will be available at **http://localhost:5173** with:
-- **Home** — Project overview and navigation
-- **Equity Registry** — Register and verify equity stakes
-- **Wallet** — Manage Midnight Lace wallet connection
+| Problem | Our Solution |
+|---------|-------------|
+| Investors can see your full cap table | **Encrypted private state** — only authorized parties can decrypt |
+| Competitors learn your fundraising details | **Zero-knowledge proofs** — verify facts without revealing data |
+| Cap table records can be altered | **Immutable blockchain** — every registration is permanent |
+| No audit trail for equity changes | **On-chain history** — full transaction trail on Midnight |
 
-### Deploy Contract Only
+### Core Capabilities
 
-```bash
-cd equity-registry-contract
-npm run build
-npm run deploy
-```
+- **🔐 Register Equity Stakes** — Record ownership on an immutable ledger with encrypted details
+- **👁️ Privacy by Default** — Shareholder names, percentages, and vesting terms stay encrypted
+- **✅ Verifiable Proofs** — Prove equity facts to auditors/regulators without exposing the cap table
+- **🏦 Lace Wallet Integration** — Connect directly via Midnight's DApp Connector API
 
-The deployment script will:
-1. Create/import a wallet
-2. Sync with the network
-3. Register for dust token generation
-4. Deploy the smart contract
-5. Save deployment details to `deployment.json`
+---
 
-## 🏗️ Project Architecture
-
-### Smart Contract Structure
+## 🏗️ Architecture
 
 ```
-Anonymous Startup Equity Registry
-├── Public Ledger (On-chain, Visible)
-│   └── equityStakes: U32 (count of registered stakes)
-│
-└── Private State (Encrypted, Private)
-    ├── Shareholder identities
-    ├── Equity percentages & amounts
-    ├── Vesting schedules
-    └── Cap table details
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend (React + Vite)                   │
+│  ┌──────────────┐  ┌───────────────┐  ┌──────────────────┐  │
+│  │ Wallet       │  │ Contract      │  │ Provider         │  │
+│  │ Connection   │  │ Panel         │  │ Wiring           │  │
+│  │ (Lace DApp   │  │ (State +      │  │ (Indexer, Proof  │  │
+│  │  Connector)  │  │  Actions)     │  │  Server, Node)   │  │
+│  └──────┬───────┘  └───────┬───────┘  └────────┬─────────┘  │
+│         │                  │                   │             │
+└─────────┼──────────────────┼───────────────────┼─────────────┘
+          │                  │                   │
+          ▼                  ▼                   ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 Midnight Network (Local)                     │
+│  ┌──────────────┐  ┌───────────────┐  ┌──────────────────┐  │
+│  │ Node         │  │ Indexer       │  │ Proof Server     │  │
+│  │ :9944        │  │ :8088         │  │ :6300            │  │
+│  └──────────────┘  └───────────────┘  └──────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Core Circuits
+### Privacy Model
 
-#### 1. `registerEquityStake()`
-Records a new equity stake on the blockchain.
+| Visibility | Data |
+|------------|------|
+| **🟢 Public** (everyone sees) | Total stakes registered, contract address, transaction timestamps |
+| **🔴 Private** (encrypted) | Shareholder identities, equity percentages, vesting schedules, valuations, share classes |
 
-**On-Chain Effect:**
-- Increments the public stake counter
-- Records proof of registration
-
-**Private Effect:**
-- Stores encrypted cap table details
-- Only decryptable by authorized parties
-
-#### 2. `verifySTakeExists()`
-Verifies that equity stakes have been registered.
-
-**Returns:** Boolean confirming stake existence
-
-**Use Cases:**
-- Board member verification
-- Compliance reporting
-- Audit confirmation
-
-## 🔐 Privacy Model
-
-### Public Information (Everyone Can See)
-✅ Total number of equity stakes registered
-✅ Contract deployment address
-✅ Transaction existence and timestamps
-
-### Private Information (Encrypted & Confidential)
-🔒 Shareholder names and identities
-🔒 Equity percentages and share amounts
-🔒 Vesting schedules and cliff periods
-🔒 Funding round valuations
-🔒 Share class preferences
-🔒 Strike prices and option details
-
-### Access Control
-- **Shareholder Level:** Private key required to decrypt personal cap table data
-- **Board Level:** Multi-sig access for authorized board members
-- **Regulatory:** Zero-knowledge proofs enable compliance disclosure without exposure
-
-## 🚀 Key Features
-
-### 1. **Privacy-First Design**
-Built on Midnight's zero-knowledge infrastructure for maximum confidentiality.
-
-### 2. **Immutable Records**
-All equity registrations are permanently recorded on the blockchain.
-
-### 3. **Verifiable Proofs**
-Enable verification of equity facts without revealing sensitive details.
-
-### 4. **Founder-Friendly**
-Simple contract interface for equity stake registration and verification.
-
-### 5. **Scalable**
-Supports unlimited equity stakes and cap table complexity.
-
-## 💻 Technology Stack
-
-| Component | Technology |
-|-----------|-----------|
-| **Blockchain** | Midnight Network |
-| **Smart Contracts** | Compact Language |
-| **Runtime** | TypeScript / Node.js |
-| **Wallet SDK** | @midnight-ntwrk/wallet-sdk-* |
-| **Proof System** | Zero-Knowledge Proofs (ZK) |
-| **Deployment** | @midnight-ntwrk/midnight-js-contracts |
-
-### Key Dependencies
-```json
-{
-  "@midnight-ntwrk/compact-js": "2.4.0",
-  "@midnight-ntwrk/wallet-sdk-facade": "1.0.0",
-  "@midnight-ntwrk/wallet-sdk-shielded": "1.0.0",
-  "@midnight-ntwrk/wallet-sdk-dust-wallet": "1.0.0",
-  "@midnight-ntwrk/midnight-js-contracts": "3.0.0",
-  "@midnight-ntwrk/ledger-v7": "7.0.0"
-}
-```
-
-## 📋 Use Cases
-
-### 1. **Startup Equity Management**
-Track founder and investor stakes securely during growth phases.
-
-```
-✓ Founder equity tracking
-✓ Investor cap table management
-✓ Employee stock option pools
-✓ Early investor rights documentation
-```
-
-### 2. **Fundraising Confidentiality**
-Maintain ownership privacy during active fundraising rounds.
-
-```
-✓ Hide cap table from competitors during pitch
-✓ Control information disclosure to specific investors
-✓ Protect valuation details
-✓ Secure pre-announcement equity arrangements
-```
-
-### 3. **Board & Shareholder Governance**
-Enable secure cap table access for authorized stakeholders.
-
-```
-✓ Board member access to equity records
-✓ Multi-sig approval for equity changes
-✓ Shareholder voting based on equity stakes
-✓ Dividend distribution calculations
-```
-
-### 4. **Regulatory Compliance**
-Support compliance requirements with privacy protection.
-
-```
-✓ SEC filing preparation (with selective disclosure)
-✓ State securities law compliance
-✓ Shareholder agreement enforcement
-✓ Audit trail and immutable records
-```
-
-### 5. **M&A & Exit Planning**
-Facilitate due diligence while protecting confidentiality.
-
-```
-✓ Share cap table with acquiring company
-✓ Prove equity facts without full exposure
-✓ Track vesting through acquisition
-✓ Calculate exit proceeds
-```
+---
 
 ## 📂 Project Structure
 
 ```
 Anonymous-Startup-Equity-Registry/
-├── equity-registry-contract/                # Smart contract package
+│
+├── equity-registry-contract/          # Smart contract package
 │   ├── src/
-│   │   ├── equity-registry.compact          # Compact contract source
-│   │   ├── deploy.ts                        # Deployment script
-│   │   ├── index.ts                         # Package exports
+│   │   ├── counter.compact            # Compact language contract source
+│   │   ├── deploy.ts                  # Deployment script
+│   │   ├── index.ts                   # Package exports (Counter, createPrivateState)
 │   │   └── managed/
-│   │       ├── counter/                     # Compiled contract assets
-│   │       │   ├── contract/                # Runtime JS + types
-│   │       │   ├── keys/                    # ZK prover/verifier keys
-│   │       │   └── zkir/                    # ZK intermediate representation
-│   │       └── equity-registry/             # Equity registry compiled assets
-│   ├── deployment.json                      # Deployed contract record
+│   │       └── counter/
+│   │           ├── contract/          # Compiled JS + TypeScript types
+│   │           ├── keys/              # ZK prover & verifier keys
+│   │           └── zkir/              # ZK intermediate representation
+│   ├── deployment.json                # Live contract address + seed
 │   └── package.json
 │
-├── frontend-vite-react/                     # Full-stack React frontend
+├── frontend-vite-react/               # React frontend
 │   ├── src/
-│   │   ├── modules/midnight/
-│   │   │   ├── equity-registry-sdk/         # Contract SDK for frontend
-│   │   │   │   ├── api/                     # Types + ContractController
-│   │   │   │   ├── contexts/                # React providers
-│   │   │   │   └── hooks/                   # React hooks
-│   │   │   └── wallet-widget/               # Lace wallet integration
-│   │   ├── pages/
-│   │   │   ├── home/                        # Landing page
-│   │   │   ├── equity-registry/             # Registry UI
-│   │   │   └── wallet-ui/                   # Wallet dashboard
-│   │   ├── routes/                          # TanStack Router file routes
-│   │   ├── layouts/                         # App layout with nav
-│   │   └── components/                      # UI components (shadcn)
-│   ├── .env                                 # Contract address config
-│   ├── vite.config.ts                       # Vite + WASM + polyfills
+│   │   ├── midnight/
+│   │   │   ├── wallet.ts              # Lace wallet via DApp Connector API v4
+│   │   │   ├── providers.ts           # Midnight SDK provider wiring
+│   │   │   ├── contract.ts            # ContractController (join + callTx)
+│   │   │   └── types.ts              # All type definitions
+│   │   ├── contexts/
+│   │   │   ├── WalletContext.tsx       # Wallet state + auto-reconnect
+│   │   │   └── ContractContext.tsx     # Contract lifecycle + on-chain state
+│   │   ├── components/
+│   │   │   ├── Header.tsx             # Navigation bar
+│   │   │   ├── WalletButton.tsx       # Wallet picker / connect / disconnect
+│   │   │   ├── WalletInfo.tsx         # Addresses, balances, endpoints
+│   │   │   └── ContractPanel.tsx      # On-chain state + register action
+│   │   ├── App.tsx                    # Root component
+│   │   ├── main.tsx                   # Entry point
+│   │   └── globals.ts                # Node.js polyfills for browser
+│   ├── .env                           # VITE_CONTRACT_ADDRESS
+│   ├── vite.config.ts                 # WASM + polyfills + TailwindCSS
 │   └── package.json
 │
-├── midnight-local-network/                  # Local network setup
-│   ├── compose.yml                          # Docker Compose config
+├── midnight-local-network/            # Docker-based local network
+│   ├── compose.yml                    # Node + Indexer + Proof Server
 │   └── src/
-│       ├── fund.ts                          # Wallet funding script
-│       └── utils.ts                         # Network utilities
+│       ├── fund.ts                    # Wallet funding utilities
+│       └── utils.ts                   # Network helpers
 │
-├── vercel.json                              # Vercel deployment config
-├── turbo.json                               # Turborepo config
-└── package.json                             # Workspace root
+├── turbo.json                         # Turborepo monorepo config
+├── vercel.json                        # Vercel deployment config
+└── package.json                       # Workspace root
 ```
 
-## 🔧 Available Commands
+---
+
+## ⚡ Quick Start
+
+### Prerequisites
+
+- **Node.js** 18+
+- **Docker Desktop** (for local Midnight network)
+- **Midnight Lace Wallet** browser extension
+
+### 1. Start the Local Network
 
 ```bash
-# Root workspace
-npm install                    # Install all dependencies
-npm run build                  # Build all packages (turbo)
-npm run dev:frontend           # Start frontend dev server
-npm run build-production       # Production build (contract + frontend)
-
-# Contract (cd equity-registry-contract/)
-npm run build                  # Compile TypeScript
-npm run compile:equity         # Compile Compact contract
-npm run deploy                 # Deploy to Midnight network
-
-# Frontend (cd frontend-vite-react/)
-npm run dev                    # Start dev server (localhost:5173)
-npm run build                  # Production build to dist/
-npm run preview                # Preview production build
+cd midnight-local-network
+docker compose up -d
 ```
 
-## 📝 Deployment Details
+Wait for all 3 containers to be healthy:
 
-### deployment.json
-After successful deployment, the contract details are saved in `deployment.json`:
+| Service | Port | Purpose |
+|---------|------|---------|
+| Node | 9944 | Substrate blockchain node |
+| Indexer | 8088 | GraphQL query service |
+| Proof Server | 6300 | Zero-knowledge proof generation |
 
-```json
-{
-  "contractAddress": "0b024463133ca043ada35a33ad169c3f64672f4d3099244fd36feca8992effdf",
-  "network": "undeployed",
-  "deployedAt": "2026-02-15T11:40:55.475Z",
-  "seed": "4295e2b3cf4cd78e5c3f52f73d9f4a7e2bf419bcadd106632780fda850084e98"
-}
-```
-
-**Important:** Keep the seed safe. This seed controls the wallet that deployed the contract and manages its lifecycle.
-
-## 🔄 How It Works
-
-### Registration Flow
-
-```
-Shareholder
-    ↓
-[Register Equity Stake]
-    ↓
-Create Private Cap Table Data
-    ↓
-Encrypt with Zswap (Midnight's Shielded Pool)
-    ↓
-Call registerEquityStake()
-    ↓
-Public Ledger: Increment counter ✓
-Private State: Store encrypted data ✓
-    ↓
-TX Hash Confirmation
-    ↓
-Equity stake recorded immutably
-```
-
-### Verification Flow
-
-```
-Auditor / Regulator
-    ↓
-[Request Verification]
-    ↓
-Call verifyStakeExists()
-    ↓
-Public Ledger Returns: True/False ✓
-    ↓
-Generate Zero-Knowledge Proof
-    ↓
-Verify equity existence without exposure
-    ↓
-Compliance requirement met ✓
-```
-
-## 🌐 Network Configuration
-
-Default configuration targets the local Midnight network:
-
-| Service | Default | Environment Variable |
-|---------|---------|----------------------|
-| Indexer | http://127.0.0.1:8088 | `INDEXER_URL` |
-| Indexer WS | ws://127.0.0.1:8088 | `INDEXER_WS_URL` |
-| Node | http://127.0.0.1:9944 | `NODE_URL` |
-| Proof Server | http://127.0.0.1:6300 | `PROOF_SERVER_URL` |
-| Network ID | undeployed | `NETWORK_ID` |
-
-### Override Configuration
+### 2. Install Dependencies
 
 ```bash
-# Deploy to different network
-NETWORK_ID=preprod \
-NODE_URL=https://preprod-node.midnight.network \
-INDEXER_URL=https://preprod-indexer.midnight.network \
+npm install
+```
+
+### 3. Build & Deploy the Contract
+
+```bash
+cd equity-registry-contract
+npm run build
 npm run deploy
 ```
 
-## 🛡️ Security Considerations
+This will:
+1. Create a wallet from a BIP-39 mnemonic
+2. Sync with the local network
+3. Register for DUST token generation
+4. Deploy the smart contract
+5. Save the address to `deployment.json`
 
-### ✅ Strengths
-- **Cryptographic Privacy:** Zswap encryption ensures cap table confidentiality
-- **Immutability:** All records permanently recorded on blockchain
-- **Verifiability:** Zero-knowledge proofs enable proof without disclosure
-- **Non-Custodial:** Users control their own private keys
-- **Auditable:** All transactions have immutable audit trail
+### 4. Start the Frontend
 
-### ⚠️ Important Notes
-- **Seed Security:** Protect the deployment seed like a private key
-- **Key Management:** Implement secure key storage for shareholder access
-- **Access Control:** Enforce authorization before disclosing cap table details
-- **Regulatory Compliance:** Consult legal counsel on disclosure obligations
-- **Network Security:** Use mainnet for production deployments
+```bash
+cd frontend-vite-react
+npm run dev
+```
 
-## 📚 Learning Resources
+Open **http://localhost:5173** → Connect your Lace wallet → Interact with the contract.
 
-### Midnight Documentation
-- [Midnight Network Documentation](https://midnight.network/docs)
-- [Compact Language Guide](https://midnight.network/docs/language)
-- [Zero-Knowledge Proofs](https://midnight.network/docs/zk)
+---
 
-### Contract Examples
-- Counter Contract (reference implementation)
-- Voting Contract (multi-party example)
+## 🔧 How It Works
 
-### Community
-- [Midnight Developer Forum](https://forum.midnight.network)
-- [GitHub Discussions](https://github.com/midnight-ntwrk)
+### Smart Contract (Compact Language)
 
-## 🚀 Future Enhancements
+The contract exposes a single circuit:
 
-### Phase 2: Core Extensions
+```
+circuit increment()         // Register an equity stake
+  └─ Public:  round += 1    // Increment on-chain counter
+  └─ Private: stored data   // Encrypted via Zswap shielded pool
+```
+
+| Circuit | On-Chain Effect | Private Effect |
+|---------|----------------|----------------|
+| `increment()` | Increments public stake counter | Stores encrypted cap table data |
+
+### Frontend Flow
+
+```
+User clicks "Register Equity Stake"
+         │
+         ▼
+ContractController.registerEquityStake()
+         │
+         ▼
+ZK proof generated (Proof Server :6300)
+         │
+         ▼
+Transaction balanced via Lace Wallet (DApp Connector API)
+         │
+         ▼
+Transaction submitted to Midnight Node (:9944)
+         │
+         ▼
+State update received via Indexer (:8088)
+         │
+         ▼
+UI re-renders with new stake count
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Blockchain** | Midnight Network |
+| **Smart Contract** | Compact Language |
+| **Frontend** | React 19 + Vite 6 + TailwindCSS 4 |
+| **Wallet** | Midnight Lace (DApp Connector API v4.0.0) |
+| **Proof System** | Zero-Knowledge Proofs (ZK-SNARKs) |
+| **State Management** | React Context + RxJS Observables |
+| **Monorepo** | npm Workspaces + Turborepo |
+
+### Key SDK Packages
+
+```
+@midnight-ntwrk/compact-js                          2.4.0   # Contract compilation
+@midnight-ntwrk/compact-runtime                     0.14.0  # Contract runtime
+@midnight-ntwrk/ledger-v7                           7.0.0   # Transaction types
+@midnight-ntwrk/midnight-js-contracts               3.0.0   # Deploy/join contracts
+@midnight-ntwrk/dapp-connector-api                  4.0.0   # Lace wallet integration
+@midnight-ntwrk/wallet-sdk-facade                   1.0.0   # Wallet SDK
+```
+
+---
+
+## 📝 Available Commands
+
+```bash
+# Root (workspace)
+npm install                          # Install all packages
+npm run build                        # Build everything (Turborepo)
+
+# Contract
+cd equity-registry-contract
+npm run build                        # Compile TypeScript
+npm run deploy                       # Deploy to local network
+
+# Frontend
+cd frontend-vite-react
+npm run dev                          # Dev server → localhost:5173
+npm run build                        # Production build → dist/
+npm run preview                      # Preview production build
+```
+
+---
+
+## 🌐 Network Configuration
+
+| Service | Default URL | Env Variable |
+|---------|------------|--------------|
+| Indexer | `http://127.0.0.1:8088` | `INDEXER_URL` |
+| Indexer WS | `ws://127.0.0.1:8088` | `INDEXER_WS_URL` |
+| Node | `http://127.0.0.1:9944` | `NODE_URL` |
+| Proof Server | `http://127.0.0.1:6300` | `PROOF_SERVER_URL` |
+| Network ID | `undeployed` | `NETWORK_ID` |
+
+---
+
+## 💡 Use Cases
+
+**Startup Equity Management** — Track founder/investor stakes without exposing cap table details to competitors.
+
+**Fundraising Confidentiality** — Share proof of equity registration with investors without revealing the full ownership structure.
+
+**Board Governance** — Authorized board members can verify equity records via ZK proofs.
+
+**Regulatory Compliance** — Generate verifiable proofs of equity registration for SEC filings without full disclosure.
+
+**M&A Due Diligence** — Prove equity facts to acquiring companies without exposing sensitive valuation data.
+
+---
+
+## 🚀 Roadmap
+
 - [ ] Vesting schedule automation
-- [ ] Multi-signature authorization for cap table changes
+- [ ] Multi-signature cap table changes
 - [ ] Equity transfer between parties
-- [ ] Secondary market support
-
-### Phase 3: Advanced Features
 - [ ] DAO governance based on equity stakes
 - [ ] Oracle integration for valuation tracking
-- [ ] Automated dividend distribution
-- [ ] Cap table history & version control
+- [ ] Mainnet deployment
 
-### Phase 4: Ecosystem Integration
-- [ ] Integration with accounting software
-- [ ] Tax reporting automation
-- [ ] Institutional investor dashboards
-- [ ] Insurance & liability products
+---
 
 ## 🤝 Contributing
 
-Contributions welcome! Please:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit changes (`git commit -m 'Add your feature'`)
+4. Push to branch (`git push origin feature/your-feature`)
 5. Open a Pull Request
+
+---
 
 ## 📄 License
 
-This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
-
-Built with ❤️ on Midnight Network for startup founders.
+Apache License 2.0 — see [LICENSE](LICENSE) for details.
 
 ---
 
-## 📞 Support
-
-For issues, questions, or feedback:
-- Open an issue on GitHub
-- Join the Midnight developer community
-- Check the documentation at https://midnight.network
-
----
-
-**Last Updated:** February 15, 2026
-**Status:** ✅ Full-Stack Production Ready (Local Testnet)
-**Contract Address:** `0b024463133ca043ada35a33ad169c3f64672f4d3099244fd36feca8992effdf`
-**Frontend:** React + Vite + TailwindCSS + TanStack Router
-**GitHub:** https://github.com/Biswajyoti005/Anonymous-Startup-Equity-Registry.git
+<p align="center">
+  Built with ❤️ on <strong>Midnight Network</strong> for startup founders who value privacy.
+  <br/><br/>
+  <a href="https://github.com/Biswajyoti005/Anonymous-Startup-Equity-Registry">GitHub</a> · 
+  <a href="https://midnight.network">Midnight Network</a> · 
+  <a href="https://midnight.network/docs">Documentation</a>
+</p>

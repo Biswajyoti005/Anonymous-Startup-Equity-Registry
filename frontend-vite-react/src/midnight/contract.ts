@@ -21,7 +21,8 @@ import type {
 import { PRIVATE_STATE_ID } from './types';
 
 // Compile the contract definition with assets from /public/midnight/counter/
-const compiledContract = CompiledContract.make('counter', Counter.Contract).pipe(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const compiledContract = CompiledContract.make('counter', Counter.Contract as any).pipe(
   CompiledContract.withVacantWitnesses,
   CompiledContract.withCompiledFileAssets(`${window.location.origin}/midnight/counter`),
 );
@@ -74,14 +75,16 @@ export class ContractController {
       await providers.privateStateProvider.set(PRIVATE_STATE_ID, createPrivateState(0));
     }
 
-    const contract = await findDeployedContract(providers, {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const contract = await findDeployedContract(providers as any, {
       contractAddress,
-      compiledContract,
+      compiledContract: compiledContract as any,
       privateStateId: PRIVATE_STATE_ID,
       initialPrivateState: existing ?? createPrivateState(0),
     });
 
-    return new ContractController(contract, providers);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return new ContractController(contract as any, providers);
   }
 
   /**
@@ -90,7 +93,8 @@ export class ContractController {
   async registerEquityStake(): Promise<void> {
     this.actions$.next('Registering equity stake on-chain...');
     try {
-      await this.contract.callTx.increment();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (this.contract as any).callTx.increment();
       this.actions$.next(undefined);
     } catch (err) {
       this.actions$.next(undefined);

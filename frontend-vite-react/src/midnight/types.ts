@@ -5,7 +5,6 @@
  */
 
 import type { ConnectedAPI, InitialAPI, Configuration, ConnectionStatus } from '@midnight-ntwrk/dapp-connector-api';
-import type { ImpureCircuitId } from '@midnight-ntwrk/compact-js';
 import type { MidnightProviders, PrivateStateProvider } from '@midnight-ntwrk/midnight-js-types';
 import type { DeployedContract, FoundContract } from '@midnight-ntwrk/midnight-js-contracts';
 import type { EquityRegistryPrivateState, Counter } from '@eddalabs/equity-registry-contract';
@@ -40,7 +39,8 @@ export type AvailableWallet = {
 
 export type { EquityRegistryPrivateState };
 
-export type EquityRegistryCircuits = ImpureCircuitId<Counter.Contract<EquityRegistryPrivateState>>;
+// The counter contract has a single impure circuit: 'increment'
+export type EquityRegistryCircuits = 'increment';
 
 export const PRIVATE_STATE_ID = 'equityRegistryPrivateState' as const;
 
@@ -50,11 +50,12 @@ export type EquityRegistryProviders = MidnightProviders<
   EquityRegistryPrivateState
 >;
 
-export type EquityRegistryContract = Counter.Contract<EquityRegistryPrivateState>;
+export type EquityRegistryContract = Counter.Contract;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DeployedEquityRegistryContract =
-  | DeployedContract<EquityRegistryContract>
-  | FoundContract<EquityRegistryContract>;
+  | DeployedContract<any>
+  | FoundContract<any>;
 
 // ── Derived State ───────────────────────────────────────────
 

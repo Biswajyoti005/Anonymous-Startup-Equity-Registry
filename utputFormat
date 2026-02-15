@@ -1,0 +1,8 @@
+HTTP/1.1 308 Permanent Redirect
+location: /api/v3/graphql
+vary: origin, access-control-request-method, access-control-request-headers
+access-control-allow-origin: *
+access-control-expose-headers: *
+content-length: 0
+date: Sun, 15 Feb 2026 12:32:21 GMT
+

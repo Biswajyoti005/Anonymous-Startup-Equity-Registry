@@ -75,8 +75,8 @@ export default function WalletInfo() {
           <div className="grid grid-cols-1 gap-1 text-xs">
             <ServiceRow label="Indexer" value={wallet.configuration.indexerUri} />
             <ServiceRow label="Indexer WS" value={wallet.configuration.indexerWsUri} />
-            <ServiceRow label="Prover" value={wallet.configuration.proverServerUri} />
-            <ServiceRow label="Node" value={wallet.configuration.nodeUri} />
+            <ServiceRow label="Prover" value={wallet.configuration.proverServerUri ?? 'N/A'} />
+            <ServiceRow label="Node" value={wallet.configuration.substrateNodeUri} />
           </div>
         </div>
       )}
